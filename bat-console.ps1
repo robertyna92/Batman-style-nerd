@@ -317,8 +317,6 @@ WHILE ($status -eq $true)
 
         Write-Host ""
         Write-Host "Goodbye, Dark Knight." -ForegroundColor DarkYellow
-        Write-Host "T.v.b" -ForegroundColor Red
-        Write-Host "R"
         $status = $false
         break     
     }
