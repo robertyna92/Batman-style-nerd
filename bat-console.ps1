@@ -23,40 +23,57 @@ Start-Sleep -Seconds 2
 Write-Host "Loading Gotham Recovery Protocol - 100%"
 Write-Host ""
 
-Write-Host "                      *     *       *    * " -ForegroundColor $Yellow   
-Write-Host "                   ***      **     **     *** " -ForegroundColor $Yellow  
-Write-Host "                *****       *********      *****  " -ForegroundColor $Yellow  
-Write-Host "             ********       *********       ********  " -ForegroundColor $Yellow  
-Write-Host "           **********       *********       **********  " -ForegroundColor $Yellow 
-Write-Host "         **************    ***********    **************  " -ForegroundColor $Yellow 
-Write-Host "        *************************************************  " -ForegroundColor $Yellow
-Write-Host "       ***************************************************  " -ForegroundColor $Yellow
-Write-Host "       ***************************************************  " -ForegroundColor $Yellow
-Write-Host "       ***************************************************  " -ForegroundColor $Yellow
-Write-Host "       ***************************************************  " -ForegroundColor $Yellow 
-Write-Host "        *******      ****  ***********  ****      *******  " -ForegroundColor $Yellow
-Write-Host "         *****        *      *******      *        ***** " -ForegroundColor $Yellow 
-Write-Host "           ****               *****               ****   " -ForegroundColor $Yellow
-Write-Host "             **                ***                **  " -ForegroundColor $Yellow  
-Write-Host "               *                *                *  " -ForegroundColor $Yellow 
-
-Write-Host "             ********                         *******  " -ForegroundColor White
-Write-Host "                *********************************  " -ForegroundColor White
-Write-Host "                     ***********************  " -ForegroundColor White
-Write-Host ""   
-Write-Host "Welcome, Dark Knight. Batcave Recovery Systems are now online." -ForegroundColor White
-Write-Host ""
-Write-Host "Available commands:"
-Write-Host "status -> System recovery status"
-Write-Host "alfred -> Assistant AI messages"
-Write-Host "scan -> Gotham scan system"
-Write-Host "help -> Show this list"
-Write-Host "exit -> Shutdown system"
-
-$status = "true"
+$status = $true
 $statusCounter = 0
 $statusAlfred = 0
 $statusScan = 0
+
+#FUNCTIONS
+function Show-BatLogo {
+
+    Write-Host "                      *     *       *    * " -ForegroundColor Yellow   
+    Write-Host "                   ***      **     **     *** " -ForegroundColor Yellow  
+    Write-Host "                *****       *********      *****  " -ForegroundColor Yellow  
+    Write-Host "             ********       *********       ********  " -ForegroundColor Yellow  
+    Write-Host "           **********       *********       **********  " -ForegroundColor Yellow 
+    Write-Host "         **************    ***********    **************  " -ForegroundColor Yellow 
+    Write-Host "        *************************************************  " -ForegroundColor Yellow
+    Write-Host "       ***************************************************  " -ForegroundColor Yellow
+    Write-Host "       ***************************************************  " -ForegroundColor Yellow
+    Write-Host "       ***************************************************  " -ForegroundColor Yellow
+    Write-Host "       ***************************************************  " -ForegroundColor Yellow 
+    Write-Host "        *******      ****  ***********  ****      *******  " -ForegroundColor Yellow
+    Write-Host "         *****        *      *******      *        ***** " -ForegroundColor Yellow 
+    Write-Host "           ****               *****               ****   " -ForegroundColor Yellow
+    Write-Host "             **                ***                **  " -ForegroundColor Yellow  
+    Write-Host "               *                *                *  " -ForegroundColor Yellow 
+
+    Write-Host ""
+}
+
+function Show-BatMenu {
+    
+    Clear-Host
+    
+    Show-BatLogo
+
+    Write-Host ""
+    Write-Host "Welcome, Dark Knight. Batcave Recovery Systems are now online."
+    Write-Host ""
+    
+    Write-Host "Available commands:"
+    Write-Host "status -> System recovery status"
+    Write-Host "alfred -> Assistant AI messages"
+    Write-Host "scan -> Gotham scan system"
+    Write-Host "quiz -> Batman knowledge test"
+    Write-Host "help -> Show this list"
+    Write-Host "exit -> Shutdown system"
+    
+    Write-Host ""
+}
+
+Show-BatMenu
+
 
 function Invoke-RandomEvent {
     if (Get-Random -Minimum 1 -Maximum 100 -le 10)
@@ -65,11 +82,129 @@ function Invoke-RandomEvent {
     }
 }
 
+function Start-BatQuiz {
+
+    Clear-Host
+    Write-Host ""
+    Write-Host "=== BATMAN KNOWLEDGE TEST ===" -ForegroundColor Yellow
+    Write-Host ""
+
+    $score = 0
+
+    $questions = @(
+        @{
+            question = "What is Batman's real name?"
+            options = @("a) Clark Kent", "b) Bruce Wayne", "c) Tony Stark")
+            answer = "b"
+        },
+        @{
+            question = "What city does Batman protect?"
+            options = @("a) Metropolis", "b) Star City", "c) Gotham")
+            answer = "c"
+        },
+        @{
+            question = "Who is Batman's loyal butler?"
+            options = @("a) Alfred", "b) Jarvis", "c) Penguin")
+            answer = "a"
+        },
+        @{
+            question = "What is the name of Batman's car?"
+            options = @("a) Batmobile", "b) Batcar", "c) Darkmobile")
+            answer = "a"
+        },
+        @{
+            question = "Who is Batman's arch-enemy?"
+            options = @("a) Joker", "b) Thanos", "c) Loki")
+            answer = "a"
+        },
+        @{
+            question = "What is Batman afraid of?"
+            options = @("a) Snakes", "b) Bats", "c) Nothing")
+            answer = "b"
+        },
+        @{
+            question = "What is Batman's secret base called?"
+            options = @("a) Batcave", "b) Batroom", "c) Batlab")
+            answer = "a"
+        },
+        @{
+            question = "Who trained Batman?"
+            options = @("a) Ra's al Ghul", "b) Odin", "c) Nick Fury")
+            answer = "a"
+        },
+        @{
+            question = "What signal calls Batman?"
+            options = @("a) Batlight", "b) Bat-Signal", "c) Dark-Signal")
+            answer = "b"
+        },
+        @{
+            question = "What does Batman refuse to use?"
+            options = @("a) Cars", "b) Guns", "c) Technology")
+            answer = "b"
+        },
+        @{
+            question = "Who is the true hero of this office?"
+            options = @("a) Batman", "b) Alfred", "c) GSLF")
+            answer = "c"
+        }
+    )
+
+    $questions = $questions | Get-Random -Count $questions.Count
+
+    $qNumber = 1
+
+    foreach ($q in $questions) {
+
+        Write-Host ""
+        Write-Host "$qNumber) $($q.question)"
+
+        foreach ($opt in $q.options) {
+            Write-Host $opt
+        }
+
+        $userAnswer = Read-Host "Your answer"
+
+        if ($userAnswer -eq $q.answer) {
+            Write-Host "Correct!" -ForegroundColor Green
+            $score++
+        }
+        else {
+            Write-Host "Wrong!" -ForegroundColor Red
+        }
+
+        $qNumber++
+    }
+
+    Write-Host ""
+    Write-Host "Quiz completed!" -ForegroundColor Yellow
+    Write-Host "Your score: $score / 10"
+
+    if ($score -eq 10) {
+        Write-Host "Perfect score. Gotham is proud of you." -ForegroundColor Green
+    }
+    elseif ($score -ge 7) {
+        Write-Host "Excellent. Alfred approves." -ForegroundColor Yellow
+    }
+    elseif ($score -ge 5) {
+        Write-Host "Not bad, but training continues." -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "Back to the Batcave for more study." -ForegroundColor Red
+    }
+
+    Write-Host ""
+    Read-Host "Press ENTER to return to BatConsole"
+
+    Clear-Host
+
+    Show-BatMenu
+}
+
 #LOOP
-WHILE ($status -eq "true")
+WHILE ($status -eq $true)
 {
     $inputcommand = Read-Host "BatConsole>"
-    if($inputcommand -notin @("status","alfred","scan","help","exit"))
+    if($inputcommand -notin @("status","alfred","scan","quiz","help","exit"))
     {
         Write-Host "Please enter a valid command. Type 'help' for a list of commands."
         continue
@@ -114,7 +249,12 @@ WHILE ($status -eq "true")
         $statusScan++
         if($statusScan -gt 3) { $statusScan = 3 }
         Invoke-RandomEvent
-    }     
+    }  
+    
+    if($inputcommand -eq "quiz")
+    {
+        Start-BatQuiz
+    }
 
     # ---------------- HELP ----------------
     elseif($inputcommand -eq "help")
@@ -149,11 +289,9 @@ WHILE ($status -eq "true")
 
         Write-Host ""
         Write-Host "Goodbye, Dark Knight." -ForegroundColor DarkYellow
-        $status = "false"
+        Write-Host "T.v.b" -ForegroundColor Red
+        Write-Host "R"
+        $status = $false
         break     
     }
 }
-
-
-
-
