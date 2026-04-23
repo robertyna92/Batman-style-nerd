@@ -31,9 +31,9 @@ $statusScan = 0
 #FUNCTIONS
 function Show-BatLogo {
 
-    Write-Host "                      *     *       *    * " -ForegroundColor Yellow   
-    Write-Host "                   ***      **     **     *** " -ForegroundColor Yellow  
-    Write-Host "                *****       *********      *****  " -ForegroundColor Yellow  
+    Write-Host "                      *     *       *     * " -ForegroundColor Yellow   
+    Write-Host "                   ***      **     **      *** " -ForegroundColor Yellow  
+    Write-Host "                *****       *********       *****  " -ForegroundColor Yellow  
     Write-Host "             ********       *********       ********  " -ForegroundColor Yellow  
     Write-Host "           **********       *********       **********  " -ForegroundColor Yellow 
     Write-Host "         **************    ***********    **************  " -ForegroundColor Yellow 
@@ -76,7 +76,7 @@ Show-BatMenu
 
 
 function Invoke-RandomEvent {
-    if (Get-Random -Minimum 1 -Maximum 100 -le 10)
+    if ((Get-Random -Minimum 1 -Maximum 100) -le 10)
     {
         Write-Host "System note: minor fluctuation detected in Gotham grid."
     }
@@ -215,8 +215,8 @@ WHILE ($status -eq $true)
         {
             0 { Write-Host "Monitoring active: no anomalies detected." }
             1 { Write-Host "Gotham is quiet. Too quiet." }
-            2 { Write-Host "Everything is under control… mostly." }
-            default { Write-Host "You really like checking this, don’t you?." }
+            2 { Write-Host "Everything is under control... mostly." }
+            default { Write-Host "You really like checking this, don't you?." }
         }
         $statusCounter++
         if($statusCounter -gt 3) { $statusCounter = 3 }
@@ -241,8 +241,8 @@ WHILE ($status -eq $true)
     {
         switch($statusScan)
         {
-            0 { Write-Host "Scanning Gotham… try not to move the city." }
-            1 { Write-Host "Initializing surveillance… please behave, Gotham." }
+            0 { Write-Host "Scanning Gotham... try not to move the city." }
+            1 { Write-Host "Initializing surveillance... please behave, Gotham." }
             2 { Write-Host "No activity. Even criminals are taking a day off." }
             default { Write-Host "I admire your dedication to finding problems that do not exist." }
         }
@@ -259,12 +259,40 @@ WHILE ($status -eq $true)
     # ---------------- HELP ----------------
     elseif($inputcommand -eq "help")
     {
-        Write-Host "Available commands:"
-        Write-Host "status -> System recovery status"
-        Write-Host "alfred -> Assistant AI messages"
-        Write-Host "scan -> Gotham scan system"
-        Write-Host "help -> Show this list"
-        Write-Host "exit -> Shutdown system"
+         Write-Host ""
+    Write-Host "=== BATCOMPUTER COMMAND MANUAL ===" -ForegroundColor Yellow
+    Write-Host ""
+
+    Write-Host "status" -ForegroundColor Cyan
+    Write-Host "   Check current Gotham system stability."
+    Write-Host "   Use this command multiple times to monitor system behavior."
+    Write-Host ""
+
+    Write-Host "alfred" -ForegroundColor Cyan
+    Write-Host "   Receive advisory messages from Alfred."
+    Write-Host "   Alfred may provide operational updates or witty remarks."
+    Write-Host ""
+
+    Write-Host "scan" -ForegroundColor Cyan
+    Write-Host "   Perform a city-wide surveillance scan."
+    Write-Host "   Use this command to detect unusual Gotham activity."
+    Write-Host ""
+
+    Write-Host "quiz" -ForegroundColor Cyan
+    Write-Host "   Launch the Batman knowledge test."
+    Write-Host "   Answer the questions and prove your loyalty to Gotham."
+    Write-Host ""
+
+    Write-Host "help" -ForegroundColor Cyan
+    Write-Host "   Display this command manual."
+    Write-Host ""
+
+    Write-Host "exit" -ForegroundColor Cyan
+    Write-Host "   Shutdown BatComputer systems safely."
+    Write-Host ""
+
+    Write-Host "Tip: Commands are not case sensitive." -ForegroundColor DarkGray
+    Write-Host ""
     }
    
     # ---------------- EXIT ----------------
@@ -295,3 +323,7 @@ WHILE ($status -eq $true)
         break     
     }
 }
+
+
+
+
